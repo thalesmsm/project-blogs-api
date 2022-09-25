@@ -3,6 +3,7 @@ const loginController = require('./controllers/login.controller');
 const userController = require('./controllers/user.controller');
 const categoryController = require('./controllers/category.controller');
 const auth = require('./middlewares/auth');
+const { getAllPosts } = require('./controllers/post.controller');
 
 // ...
 
@@ -16,6 +17,7 @@ app.get('/user', auth, userController.getUsers);
 app.get('/user/:id', auth, userController.getUserById);
 app.post('/categories', auth, categoryController.createCategory);
 app.get('/categories', auth, categoryController.getAllCategories);
+app.get('/post', auth, getAllPosts);
 
 // ...
 

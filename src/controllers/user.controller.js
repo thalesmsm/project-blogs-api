@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const userService = require('../services/user.service');
-const { createUser } = require('../services/user.service');
 const { validateUserBody } = require('../services/validations');
 
 const { JWT_SECRET } = process.env;
@@ -20,7 +19,7 @@ const postUser = async (req, res) => {
     }
     if (error) return res.status(400).json({ message: error.message });
     
-    await createUser(req.body);
+    await userService.createUser(req.body);
 
     const payload = req.body;
 
