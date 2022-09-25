@@ -1,6 +1,6 @@
 const { Category } = require('../models');
 
-const getAll = async () => {
+const getAllCategories = async () => {
   const categories = await Category.findAll();
 
   return categories;
@@ -13,6 +13,6 @@ const createCategory = async (body) => {
 };
 
 module.exports = {
-  getAll,
+  getAllCategories,
   createCategory,
 };
