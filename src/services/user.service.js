@@ -6,4 +6,12 @@ const createUser = async (body) => {
   return user;
 };
 
-module.exports = { createUser };
+const getAll = async () => {
+  const users = await User.findAll(
+    { attributes: { exclude: ['password'] } },
+  );
+
+  return users;
+};
+
+module.exports = { createUser, getAll };

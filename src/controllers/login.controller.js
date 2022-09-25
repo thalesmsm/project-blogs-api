@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
   }
   const payload = { email: req.body.email };
 
-  const token = jwt.sign(payload, JWT_SECRET);
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1m' });
 
   res.status(200).json({ token });
   } catch (err) {
