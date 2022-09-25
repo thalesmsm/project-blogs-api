@@ -6,20 +6,19 @@ const { JWT_SECRET } = process.env;
 
 module.exports = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const { users } = await getAll();
+    const users = await getAll();
 
-  if (!email || !password) { 
+  if (!req.body.email || !req.body.password) { 
     return res.status(400).json({ message: 'Some required fields are missing' }); 
   }
 
   const hasUser = users.some((user) => 
-    email === user.email && password === user.password);
+    req.body.email === user.email && req.body.password === user.password);
 
   if (!hasUser) { 
     return res.status(400).json({ message: 'Invalid fields' });
   }
-  const payload = { email };
+  const payload = { email: req.body.email };
 
   const token = jwt.sign(payload, JWT_SECRET);
 
