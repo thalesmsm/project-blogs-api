@@ -8,6 +8,12 @@ const validateUserBody = (body) =>
     image: Joi.string(),
   }).validate(body);
 
+const validateCategoryBody = (body) => 
+  Joi.object({
+    name: Joi.string().required(),
+  }).validate(body);
+
 module.exports = {
   validateUserBody,
+  validateCategoryBody,
 };
