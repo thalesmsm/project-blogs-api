@@ -12,6 +12,7 @@ app.use(express.json());
 app.post('/login', loginController);
 app.post('/user', userController.postUser);
 app.get('/user', auth, userController.getUsers);
+app.get('/user/:id', auth, userController.getUserById);
 
 // ...
 

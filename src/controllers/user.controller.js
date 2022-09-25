@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { getAll } = require('../services/user.service');
+const userService = require('../services/user.service');
 const { createUser } = require('../services/user.service');
 const { validateUserBody } = require('../services/validations');
 
@@ -10,7 +10,7 @@ const postUser = async (req, res) => {
   try {
     const { error } = validateUserBody(req.body);
     
-    const users = await getAll();
+    const users = await userService.getAll();
     
     const hasUser = users.some((user) => 
     req.body.email === user.email);
@@ -34,12 +34,27 @@ const postUser = async (req, res) => {
 };
 
 const getUsers = async (_req, res) => {
-  const users = await getAll();
+  const users = await userService.getAll();
 
   res.status(200).json(users);
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type, message } = await userService.getUserById(id);
+
+    if (type) return res.status(type).json({ message });
+
+    res.status(200).json(message);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json('Something went wrong');
+  }
 };
 
 module.exports = {
   postUser,
   getUsers,
+  getUserById,
 };
